@@ -11,6 +11,14 @@ import { response } from 'express';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
+
+/**
+ * The UserProfileComponent provides the user profile view.
+ * 
+ * Displays user info, the ability to modify user info, or
+ * delete the user's account. This is also where a user
+ * can view/edit their favorite movies.
+ */
 export class UserProfileComponent implements OnInit {
   user: any = {};
   initialInput: any = {};
@@ -33,7 +41,10 @@ export class UserProfileComponent implements OnInit {
     this.getUserInfo();
   }
 
-  // Fetch user data via API
+   /**
+   * Fetch (GET) the user's info with fetchApiData.getUser()
+   * @returns an object of the user's info
+   */
   getUserInfo(): void {
     this.fetchApiData.getUser().subscribe((resp: any) => {
       this.user = resp.user;
@@ -46,7 +57,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Update user data, such as username, password, email, or birthday
+  /**
+   * Update (PUT) the user's info with fetchApiData.editUser()
+   */
   updateUserInfo(): void {
     this.fetchApiData.editUser(this.updatedUser).subscribe((result) => {
       console.log(result);
@@ -73,7 +86,9 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Delete user data for the user that is logged in
+  /**
+   * Delete (DELETE) the user's info with fetchApiData.deleteUser()
+   */
   deleteAccount(): void {
     if (confirm('All your data will be lost - this cannot be undone!')) {
       this.router.navigate(['welcome']).then(() => {
